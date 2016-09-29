@@ -37,13 +37,5 @@ public class ValidatorTest {
         Assert.assertFalse(new Validator().validateArgumentType(new String[] { "test" }));
     }
     
-    @Test
-    public void ifArgumentsLengthAndArgumentTypesIsCorrect(){
-        Validator mockValidator = mock(Validator.class);
-        when(mockValidator.validateNumberOfArguments(any(String[].class))).thenReturn(true);
-        when(mockValidator.validateArgumentType(any(String[].class))).thenReturn(true);
-        when(mockValidator.validateArguments(any(String[].class))).thenCallRealMethod();
-        Assert.assertTrue(mockValidator.validateArguments(new String[0]));
-        
-    }
+   
 }
