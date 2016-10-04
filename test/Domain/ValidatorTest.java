@@ -11,7 +11,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
 /**
  *
  * @author AsphaltPanthers
@@ -44,6 +43,5 @@ public class ValidatorTest {
         when(mockValidator.validateArgumentType(any(String[].class))).thenReturn(true);
         when(mockValidator.validateArguments(any(String[].class))).thenCallRealMethod();
         Assert.assertTrue(mockValidator.validateArguments(new String[0]));
-        
     }
 }

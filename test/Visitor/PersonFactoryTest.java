@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Visitor;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import org.junit.Assert;
+import org.junit.Test;
+
+/**
+ *
+ * @author Tillie
+ */
+public class PersonFactoryTest {
+    
+    /*
+    * We only have four types of visitors, only if the visitor type belongs to them,
+    * we can get a new visitor. If not, null should be returned
+    */
+    @Test
+    public void testTypeNotAmongFour(){
+        Assert.assertNull(new PersonFactory().getVisitor("Assistant"));
+    }
+    
+    /*
+    * If a new visitor is created, it should be an instance of Person
+    */
+    @Test
+    public void testTypePerson(){
+        Assert.assertThat(new PersonFactory().getVisitor("Blogger"), instanceOf(Person.class));
+    }
+}
