@@ -15,20 +15,27 @@ public class LocGenerator {
     
     String[] locs = LocationUtil.locsFive;//get locations including "leave the city"
     Random rg;
-    public LocGenerator(String seed){
-        rg=new Random(Integer.valueOf(seed));
+    public LocGenerator(Random rg){
+        this.rg=rg;
     }
    
     /*
      *This method is used to generate a random place for visitor to visit
     */
     public String getPlace(int iteration){
+         return locs[getIdx(iteration)];
+    }
+    
+     /*
+     * Generate a random index based on the places visit has visited 
+    */
+     public int getIdx(int iteration){
         //if visitor is visiting the first place, we won't render "left city" choice
         //and the rest four places has equal probability of being visited
         if(iteration==1)
-            return locs[rg.nextInt(4)];
+            return rg.nextInt(4);
         //if not the first place, all five choices have equal probability of being generated
         else
-            return locs[rg.nextInt(5)];
+            return rg.nextInt(5);
     }
 }

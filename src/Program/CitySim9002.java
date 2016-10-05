@@ -9,6 +9,7 @@ import Domain.Validator;
 import Location.LocGenerator;
 import Visitor.Person;
 import Visitor.VisitorList;
+import java.util.Random;
 
 /**
  *
@@ -19,29 +20,27 @@ public class CitySim9002 {
     public static void main(String[] args) {
         //only if the user render a valid argument, will the program be executed
         if (new Validator().validateArguments(args)) {
-            //Initialize place generator
-            LocGenerator lg = new LocGenerator(String.valueOf(args[0]));
+            //Initialize generator number generator
+            Random rg = new Random(Integer.valueOf(args[0]));
+            
+            LocGenerator lg = new LocGenerator(rg);
             //Get Five random visitors
             Person[] visitors = VisitorList.getVisitorList(5);
-            System.out.print("Welcome to CitySim!  Your seed is "+args[0]+".\n");
-            //Iterate the five visitors
-            for(int i=1;i<=5;i++){
-                System.out.print("Visitor "+i+" is a "+visitors[i-1].getType()+".\n");
-                //record the number of iteration for place generation
-                int iteration=1;
-                //only if visitor has left the city, will this loop end
-                while(true){
-                    //get a random place
-                     String place=lg.getPlace(iteration);
+           
+            System.out.print("Welcome to CitySim!  Your seed is "+args[0]+".\n");    
+            
+            for(int i=1;i<=5;i++){//Iterate the five visitors
+                
+                int iteration=0;//record the number of iteration for place generation
+                System.out.println(getPrintInfo(visitors[i],i,iteration,""));//infor printed before visiting any place
+                iteration++;
+                
+                while(true){//only if visitor has left the city, will this loop end  
+                     String place=lg.getPlace(iteration);//get a random place
+                     System.out.println(getPrintInfo(visitors[i],i,iteration,place));
                      // if the place equals to left, this visitor finishes his/her trip
-                     if(place.equals("left")){
-                         System.out.print("Visitor "+i+" has left the city.\n*** \n");
+                     if(place.equals("left"))
                          break;
-                     }
-                     System.out.print("Visitor "+i+" is going to "+place+"!\n");
-                     //identify whether or not this visitor like this place
-                     String str=visitors[i-1].like(place)==true?"like":"not like";
-                     System.out.print("Visitor "+i+" did "+str+" "+place+".\n"); 
                      iteration++;
                 }
             }
@@ -50,5 +49,24 @@ public class CitySim9002 {
             System.out.println(errorMessage);
             System.exit(0);
         }
+    }
+    
+    public static String getPrintInfo(Person visitor,int i,int iter,String place){
+        String ans="Visitor "+i;
+        if(iter==0){
+            ans+=" is a "+visitor.getType()+".\n";
+        }
+        else{
+            // if the place equals to left, this visitor finishes his/her trip
+            if(place.equals("left"))
+                ans+=" has left the city.\n*** \n";
+            else{
+                ans+=" is going to "+place+"!\n";
+                //identify whether or not this visitor like this place
+                String str=visitor.like(place)==true?"like":"not like";
+                ans+= "Visitor "+i+" did "+str+" "+place+".\n";
+            }
+        }
+        return ans;
     }
 }

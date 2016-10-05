@@ -22,14 +22,49 @@ public class LocGeneratorTest {
     /*
     * Visitor cannot leave the City before he/she visits the first place 
     * Therefore, the random generator in the original method will only generator number 0-3, 
-    * and andom number generator mocked here will always return 2 whose corresponding location
+    */ 
+    @Test
+    public void firstIterIdxGeneratorwithLeave(){
+        Random mockRandom = mock(Random.class);
+        when(mockRandom.nextInt(any(Integer.class))).thenReturn(2);
+        Assert.assertNotEquals(4, new LocGenerator(mockRandom).getIdx(1));
+    }
+    
+    /*
+    * Visitor should visitor one of the four places before leaving
+    * mock any returned number from 0-3 should return true 
+    */ 
+    @Test
+    public void firstIterIdxGeneratorNoLeave(){
+        Random mockRandom = mock(Random.class);
+        when(mockRandom.nextInt(any(Integer.class))).thenReturn(2);
+        Assert.assertEquals(2, new LocGenerator(mockRandom).getIdx(2));
+    }
+    
+      
+    /*
+    * Once visitor has visited one city, he/she shall be able to 
+    * visit any of the four places and leave the city.
+    * Therefore, the returned value can be 4
+    */ 
+    @Test
+    public void otherIterIdxGenerator(){
+        Random mockRandom = mock(Random.class);
+        when(mockRandom.nextInt(any(Integer.class))).thenReturn(4);
+        Assert.assertEquals(4, new LocGenerator(mockRandom).getIdx(2));
+    }
+    
+    /*
+    * Visitor cannot leave the City before he/she visits the first place 
+    * Therefore, the random generator in the original method will only generator number 0-3, 
+    * and random number generator mocked here will always return 2 whose corresponding location
     * is "Down", meaning it will not equal to "left" whose index is 4
     */ 
     @Test
     public void firstPlaceNotLeave() {
-         Random mockRandom = mock(Random.class);
-         when(mockRandom.nextInt(any(Integer.class))).thenReturn(2);
-         Assert.assertNotEquals("left", new LocGenerator("9").getPlace(1));
+         LocGenerator mockLocGenerator = mock(LocGenerator.class);
+         when(mockLocGenerator.getIdx(any(Integer.class))).thenReturn(2);
+         Assert.assertNotEquals("left", new LocGenerator(new Random()).getPlace(1));
     }
     
     /*
@@ -42,9 +77,9 @@ public class LocGeneratorTest {
         HashSet<String> set = new HashSet();
         String[] locs = LocationUtil.locsFour;
         for(String s:locs) set.add(s);
-        Random mockRandom = mock(Random.class);
-        when(mockRandom.nextInt(any(Integer.class))).thenReturn(2);
-        Assert.assertTrue(set.contains(new LocGenerator("9").getPlace(1)));
+        LocGenerator mockLocGenerator = mock(LocGenerator.class);
+        when(mockLocGenerator.getIdx(any(Integer.class))).thenReturn(2);
+        Assert.assertTrue(set.contains(new LocGenerator(new Random()).getPlace(1)));
     }
     
     /*
@@ -58,8 +93,8 @@ public class LocGeneratorTest {
         HashSet<String> set = new HashSet();
         String[] locs = LocationUtil.locsFive;
         for(String s:locs) set.add(s);
-        Random mockRandom = mock(Random.class);
-        when(mockRandom.nextInt(any(Integer.class))).thenReturn(4);
-        Assert.assertTrue(set.contains(new LocGenerator("9").getPlace(3)));
+        LocGenerator mockLocGenerator = mock(LocGenerator.class);
+        when(mockLocGenerator.getIdx(any(Integer.class))).thenReturn(4);
+        Assert.assertTrue(set.contains(new LocGenerator(new Random()).getPlace(3)));
     }
 }
