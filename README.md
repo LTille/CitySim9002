@@ -6,4 +6,4 @@ Another concern is about testing visitors? preference of locations. For each typ
 
 Initially, I am very confused about how to mock the random number generator in the LocGenerator class as I passed seed into the constructor when I first implemented my programs. The feedback from instructor strengthened my understanding of dependency injection. Now I passed the random number generator to the constructor and tested getIdx()and getPlace() correspondingly by using mocks.
 
-![build status](https://travis-ci.org/LTillle/CitySim9002.svg?branch=master)
+![build status](https://travis-ci.org/LTille/CitySim9002.svg?branch=master)
