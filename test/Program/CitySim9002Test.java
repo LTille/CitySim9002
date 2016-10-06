@@ -29,7 +29,7 @@ public class CitySim9002Test {
     public void printTrueInfoFirstEnter(){
         Blogger mockBlogger = mock(Blogger.class);
         when(mockBlogger.getType()).thenReturn("Blogger");
-        String ans ="Visitor 1 is a Blogger.\n";
+        String ans ="Visitor 1 is a Blogger.";
         Assert.assertEquals(ans, CitySim9002.getPrintInfo(mockBlogger, 1, 0, ""));
     }
     
@@ -44,7 +44,7 @@ public class CitySim9002Test {
         when(mockStudent.getType()).thenReturn("Student");
         when(mockStudent.like(any(String.class))).thenReturn(true);
         when(mockLocGenerator.getPlace(any(Integer.class))).thenReturn("Downtown");
-        String ans ="Visitor 2 is going to Downtown!\nVisitor 2 did like Downtown.\n";
+        String ans ="Visitor 2 is going to Downtown!\nVisitor 2 did like Downtown.";
         Assert.assertEquals(ans, CitySim9002.getPrintInfo(mockStudent, 2, 2, "Downtown"));
     }
     
@@ -58,7 +58,7 @@ public class CitySim9002Test {
         LocGenerator mockLocGenerator = mock(LocGenerator.class);
         when(mockStudent.getType()).thenReturn("Professor");
         when(mockLocGenerator.getPlace(any(Integer.class))).thenReturn("left");
-        String ans ="Visitor 3 has left the city.\n*** \n";
+        String ans ="Visitor 3 has left the city.\n***";
         Assert.assertEquals(ans, CitySim9002.getPrintInfo(mockStudent, 3, 4, "left"));
     }
 }

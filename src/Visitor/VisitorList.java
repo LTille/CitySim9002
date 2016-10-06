@@ -13,10 +13,9 @@ import java.util.Random;
  */
 public class VisitorList {
      
-    public static Person[] getVisitorList(int num){
+    public static Person[] getVisitorList(int num,PersonFactory pf){
         String[] visitorType={"Student","Professor","Business Person","Blogger"};
-        Person[] persons = new Person[num];
-        PersonFactory pf = new PersonFactory();
+        Person[] persons = new Person[num];      
         Random rg = new Random();
         for(int i=0;i<num;i++){
             persons[i]=pf.getVisitor(visitorType[rg.nextInt(4)]);

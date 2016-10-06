@@ -8,6 +8,7 @@ package Program;
 import Domain.Validator;
 import Location.LocGenerator;
 import Visitor.Person;
+import Visitor.PersonFactory;
 import Visitor.VisitorList;
 import java.util.Random;
 
@@ -25,19 +26,20 @@ public class CitySim9002 {
             
             LocGenerator lg = new LocGenerator(rg);
             //Get Five random visitors
-            Person[] visitors = VisitorList.getVisitorList(5);
+            PersonFactory pf = new PersonFactory();
+            Person[] visitors = VisitorList.getVisitorList(5,pf);
            
             System.out.print("Welcome to CitySim!  Your seed is "+args[0]+".\n");    
             
             for(int i=1;i<=5;i++){//Iterate the five visitors
                 
                 int iteration=0;//record the number of iteration for place generation
-                System.out.println(getPrintInfo(visitors[i],i,iteration,""));//infor printed before visiting any place
+                System.out.println(getPrintInfo(visitors[i-1],i,iteration,""));//infor printed before visiting any place
                 iteration++;
                 
                 while(true){//only if visitor has left the city, will this loop end  
                      String place=lg.getPlace(iteration);//get a random place
-                     System.out.println(getPrintInfo(visitors[i],i,iteration,place));
+                     System.out.println(getPrintInfo(visitors[i-1],i,iteration,place));
                      // if the place equals to left, this visitor finishes his/her trip
                      if(place.equals("left"))
                          break;
@@ -54,17 +56,17 @@ public class CitySim9002 {
     public static String getPrintInfo(Person visitor,int i,int iter,String place){
         String ans="Visitor "+i;
         if(iter==0){
-            ans+=" is a "+visitor.getType()+".\n";
+            ans+=" is a "+visitor.getType()+".";
         }
         else{
             // if the place equals to left, this visitor finishes his/her trip
             if(place.equals("left"))
-                ans+=" has left the city.\n*** \n";
+                ans+=" has left the city.\n***";
             else{
                 ans+=" is going to "+place+"!\n";
                 //identify whether or not this visitor like this place
                 String str=visitor.like(place)==true?"like":"not like";
-                ans+= "Visitor "+i+" did "+str+" "+place+".\n";
+                ans+= "Visitor "+i+" did "+str+" "+place+".";
             }
         }
         return ans;

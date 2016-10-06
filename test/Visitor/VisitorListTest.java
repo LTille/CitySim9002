@@ -27,7 +27,7 @@ public class VisitorListTest {
     public void arraySizeEqualsFive(){  
         PersonFactory mockPersonFactory = mock(PersonFactory.class);
         when(mockPersonFactory.getVisitor(any(String.class))).thenReturn(new Student());
-        Assert.assertEquals(5, VisitorList.getVisitorList(5).length);
+        Assert.assertEquals(5, VisitorList.getVisitorList(5,mockPersonFactory).length);
     }
     
     /*
@@ -40,6 +40,6 @@ public class VisitorListTest {
     public void visitorTypeisPerson(){ 
         PersonFactory mockPersonFactory = mock(PersonFactory.class);
         when(mockPersonFactory.getVisitor(any(String.class))).thenReturn(new Professor());
-        Assert.assertThat(VisitorList.getVisitorList(5)[3], instanceOf(Person.class));
+        Assert.assertThat(VisitorList.getVisitorList(5,mockPersonFactory)[3], instanceOf(Person.class));
     } 
 }
