@@ -5,3 +5,5 @@ Factory design model is applied in generating different types of visitors. I wro
 Another concern is about testing visitors? preference of locations. For each type of visitor, I tested the visitor?s preference for every place. Since testing every place is cheap and fast, I didn?t randomly pick one place the visitor and one place the visitor does not like to do the test. I am not sure if I have over tested it.
 
 Initially, I am very confused about how to mock the random number generator in the LocGenerator class as I passed seed into the constructor when I first implemented my programs. The feedback from instructor strengthened my understanding of dependency injection. Now I passed the random number generator to the constructor and tested getIdx()and getPlace() correspondingly by using mocks.
+
+![build status](https://travis-ci.org/LTillle/CitySim9002.svg?branch=master)
