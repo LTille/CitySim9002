@@ -8,6 +8,8 @@ package Visitor;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import org.junit.Assert;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -30,5 +32,16 @@ public class PersonFactoryTest {
     @Test
     public void testTypePerson(){
         Assert.assertThat(new PersonFactory().getVisitor("Blogger"), instanceOf(Person.class));
+    }
+    
+    /*
+    * If a new visitor is created, it should be really the visitor 
+    * we want to create. If a new student created, it should be really a student
+    */
+    @Test
+    public void testTypePerson2(){
+        Student mockStudent = mock(Student.class);
+        when(mockStudent.getType()).thenReturn("Student");
+        Assert.assertEquals("Student",new PersonFactory().getVisitor("Student").getType());
     }
 }
